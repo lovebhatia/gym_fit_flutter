@@ -278,7 +278,7 @@ class _DayWorkoutScreenState extends State<DayWorkoutScreen> {
                   itemBuilder: (ctx, index) {
                     return ExcerciseTile(
                       gif: displayedExcercises[index].gif,
-                      name_of_exercise:
+                      nameOfExcercise:
                           displayedExcercises[index].name_of_exercise,
                       //restTime: displayedExcercises[index].,
                       sets: displayedExcercises[index].sets,

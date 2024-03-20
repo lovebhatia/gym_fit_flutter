@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoScreen extends StatefulWidget {
+  VideoScreen(name);
+
   @override
   _VideoScreenState createState() => _VideoScreenState();
 }
@@ -83,8 +85,4 @@ class _VideoScreenState extends State<VideoScreen> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(VideoScreen());
 }

@@ -1,3 +1,4 @@
+import 'package:gym_fit/src/resources/app_constant.dart';
 import 'package:gym_fit/src/screens/reps/rep_record_screen.dart';
 import 'package:gym_fit/src/screens/video_screen.dart';
 import '../../resources/app_colors.dart';
@@ -47,17 +48,9 @@ class BegModalSheet extends StatelessWidget {
                     padding: EdgeInsets.only(top: 32),
                     height: 200.h,
                     width: 350.w,
-                    child: Card(
-                        elevation: 25,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: VideoScreen()
-                        /* Image(
-                      image: AssetImage(gif),
-                    ), 
-                    */
-                        ),
+                    child: Image(
+                      image: NetworkImage('${AppConst.ChestGifBaseUrl}$gif'),
+                    ),
                   ),
                 ),
                 SizedBox(

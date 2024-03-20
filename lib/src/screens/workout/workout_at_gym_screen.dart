@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gym_fit/src/screens/exercise/exercise_screen.dart';
 
 import '../../animations/transitions.dart';
 import '../../resources/app_colors.dart';
@@ -34,48 +35,7 @@ class _WorkoutAtGymScreenState extends State<WorkoutAtGymScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    SlideLeftTransition(
-                      BMIScreen(),
-                    ),
-                  );
-                },
-                child: Container(
-                  height: 0.1.sh, // Set height as 10% of screen height
-                  padding: EdgeInsets.all(10.h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xff8E2DE2),
-                        Color(0xff4A00E0),
-                      ],
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topRight,
-                    ),
-                  ),
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'First Calculate the BMI',
-                        style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            color: Colors.white,
-                            fontSize: 22.sp,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              ExerciseGrid(),
               SizedBox(height: 20.h),
               InkWell(
                 onTap: () {

@@ -4,18 +4,21 @@ import 'package:http/http.dart' as http;
 import 'package:gym_fit/src/models/beginner/beginner_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BeginnerService {
+class ExerciseService {
   late BaseProvider _baseProvider;
   static const String _baseUrl = 'http://10.0.2.2:8000';
   static const String _authToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwMTAyMTA4LCJpYXQiOjE3MDk4ODYxMDgsImp0aSI6ImJkYWU3YjBiMGZjNjQ0MDJhMTRiOTc5M2ZkMDViY2YxIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJsb3ZlIiwiZW1haWwiOiJsb3ZlQGdtYWlsLmNvbSJ9.Z7UG-KjD06wuRmAfKp6Ir3inSbCotRsMzWD2tj7-n80';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExMTU3MjA5LCJpYXQiOjE3MTA5NDEyMDksImp0aSI6ImJmMGE3NzAwYjJiZTRhYTlhM2ZhZTJlNjcwMjU0NDIzIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJsb3ZlIiwiZW1haWwiOiJsb3ZlQGdtYWlsLmNvbSJ9.MMxNS6jlKSO3-vfuIqs8fpWovb9mzL7S7P1auQBI8uE';
 
   Future<List<ExerciseDay>> fetchExerciseDay() async {
+    print(1);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('3');
+    print(2);
     final extractedUserData = json.decode(prefs.getString('userData')!);
-    print('1');
+    print(3);
+
     String token = extractedUserData['token'];
+    print(4);
     final response = await http.get(
       Uri.parse('$_baseUrl/exerciseDays/'),
       headers: {
@@ -23,12 +26,12 @@ class BeginnerService {
         'Content-Type': 'application/json',
       },
     );
-    print('2');
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body);
+      print(data);
       List<ExerciseDay> exerciseDayList =
           data.map((json) => ExerciseDay.fromJson(json)).toList();
-      print('3');
+      print(exerciseDayList);
       return exerciseDayList;
     } else {
       throw Exception('Failed to load exerciseDay');

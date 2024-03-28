@@ -1,10 +1,12 @@
+import 'package:gym_fit/src/models/beginner/beginner_model.dart';
+
 import '../../models/excercise_model.dart';
 import '../../resources/app_colors.dart';
 import '../../widgets/beginner/beg_workout_widget.dart';
 import 'package:flutter/material.dart';
 
 class BeginnerStartWorkoutScreen extends StatelessWidget {
-  final List<ExcerciseModel> workoutExcercises;
+  final List<ExercisesPerDay> workoutExcercises;
 
   BeginnerStartWorkoutScreen({
     required this.workoutExcercises,

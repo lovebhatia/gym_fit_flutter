@@ -23,7 +23,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       color: AppColors.BLACK,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: AppColors.BLACK,
+          backgroundColor: AppColors.LIGHT_BLACK,
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

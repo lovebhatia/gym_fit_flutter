@@ -57,8 +57,7 @@ class IntModalSheet extends StatelessWidget {
                       ),
                       //...........................
                       child: //Image(image: AssetImage(gif)),
-
-                          VideoScreen()
+                          VideoScreen(nameOfExcercise)
                       //Image(
                       //
                       ),

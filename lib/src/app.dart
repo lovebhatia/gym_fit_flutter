@@ -34,17 +34,15 @@ class MyApp extends StatelessWidget {
                   .copyWith(secondary: AppColors.LIGHT_BLACK),
             ),
             debugShowCheckedModeBanner: false,
-            home: HomeScreen(),
+            home: //HomeScreen(),
 
-            /*
-            auth.isAuth
-                ? const HomeScreen()
-                : FutureBuilder(
-                    future: auth.tryAutoLogin(),
-                    builder: (ctx, authResultSnapshot) => AuthScreen(),
-                  ),
-                  */
-            //routes: {HomeScreen.routeName: (ctx) => HomeScreen()},
+                auth.isAuth
+                    ? const HomeScreen()
+                    : FutureBuilder(
+                        future: auth.tryAutoLogin(),
+                        builder: (ctx, authResultSnapshot) => AuthScreen(),
+                      ),
+            routes: {HomeScreen.routeName: (ctx) => HomeScreen()},
           ),
         ),
       ),

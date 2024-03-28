@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gym_fit/src/screens/exercise/exercise_screen.dart';
+import 'package:gym_fit/src/screens/exercise/workout_screen.dart';
 
 import '../../animations/transitions.dart';
 import '../../resources/app_colors.dart';
@@ -35,7 +35,7 @@ class _WorkoutAtGymScreenState extends State<WorkoutAtGymScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ExerciseGrid(),
+              WorkoutGrid(),
               SizedBox(height: 20.h),
               InkWell(
                 onTap: () {

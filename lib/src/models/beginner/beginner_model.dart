@@ -2,15 +2,20 @@ class ExerciseDay {
   final int id;
   final String name_of_day;
   final String createdDate;
+  final String image;
 
   ExerciseDay(
-      {required this.id, required this.name_of_day, required this.createdDate});
+      {required this.id,
+      required this.name_of_day,
+      required this.createdDate,
+      required this.image});
 
   factory ExerciseDay.fromJson(Map<String, dynamic> json) {
     return ExerciseDay(
         id: json['id'],
         name_of_day: json['name_of_day'] ?? "",
-        createdDate: json['created'] ?? "");
+        createdDate: json['created'] ?? "",
+        image: json['image'] ?? "");
   }
 }
 

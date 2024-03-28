@@ -32,6 +32,7 @@ class _BeginnerWorkoutState extends State<BeginnerWorkout> {
   Future<void> _fetchExerciseDays() async {
     try {
       final fetchedExerciseDayList = await BeginnerService().fetchExerciseDay();
+      print(fetchedExerciseDayList);
       setState(() {
         displayedExcerciseDays = fetchedExerciseDayList;
       });

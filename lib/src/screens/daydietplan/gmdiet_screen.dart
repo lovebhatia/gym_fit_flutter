@@ -15,7 +15,7 @@ class DayScreen extends StatelessWidget {
       color: AppColors.BLACK,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: AppColors.BLACK,
+          backgroundColor: AppColors.LIGHT_BLACK,
           appBar: AppBar(
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios, color: Colors.white),

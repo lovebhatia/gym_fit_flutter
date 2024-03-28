@@ -25,23 +25,25 @@ class _TimerButtonState extends State<TimerButton>
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        _startTimer();
-        if (widget.onPressed != null) {
-          // Execute the callback function and pass data if provided
-          widget.onPressed!("Your data here");
-        }
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        minimumSize: Size(MediaQuery.of(context).size.width * 0.40, 50.h),
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
+    return Flexible(
+      child: ElevatedButton(
+        onPressed: () {
+          _startTimer();
+          if (widget.onPressed != null) {
+            // Execute the callback function and pass data if provided
+            widget.onPressed!("Your data here");
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          minimumSize: Size(MediaQuery.of(context).size.width * 0.40, 50.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
         ),
+        child: TimerButtonChild(),
       ),
-      child: TimerButtonChild(),
     );
   }
 

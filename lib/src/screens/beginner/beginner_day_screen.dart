@@ -214,7 +214,6 @@ class _DayWorkoutScreenState extends State<DayWorkoutScreen> {
                         ElevatedButton(
                           //..........................start the workout...........................
                           onPressed: () {
-                            /*
                             Navigator.push(
                               context,
                               UpTransition1(
@@ -223,8 +222,16 @@ class _DayWorkoutScreenState extends State<DayWorkoutScreen> {
                                 ),
                               ),
                             );
-                            */
                           },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 15,
+                            backgroundColor: Colors.transparent,
+                            shadowColor: AppColors.LIGHT_BLACK,
+                            padding: const EdgeInsets.all(0.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
                           child: Ink(
                             decoration: const BoxDecoration(
                               gradient: LinearGradient(
@@ -252,15 +259,6 @@ class _DayWorkoutScreenState extends State<DayWorkoutScreen> {
                                       color: Colors.white),
                                 ),
                               ),
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            elevation: 15,
-                            backgroundColor: Colors.transparent,
-                            shadowColor: AppColors.LIGHT_BLACK,
-                            padding: const EdgeInsets.all(0.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
                         ),

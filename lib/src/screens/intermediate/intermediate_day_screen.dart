@@ -281,6 +281,15 @@ class _INTDayWorkoutScreenState extends State<INTDayWorkoutScreen> {
                                     ),
                                   );
                                 },
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 15,
+                                  backgroundColor: Colors.transparent,
+                                  shadowColor: AppColors.LIGHT_BLACK,
+                                  padding: const EdgeInsets.all(0.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
                                 child: Ink(
                                   decoration: const BoxDecoration(
                                     gradient: LinearGradient(
@@ -310,15 +319,6 @@ class _INTDayWorkoutScreenState extends State<INTDayWorkoutScreen> {
                                             color: Colors.white),
                                       ),
                                     ),
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  elevation: 15,
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: AppColors.LIGHT_BLACK,
-                                  padding: const EdgeInsets.all(0.0),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
                               ),

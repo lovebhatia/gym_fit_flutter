@@ -18,7 +18,7 @@ Uri makeUri(
     scheme: uriServer.scheme,
     host: uriServer.host,
     port: uriServer.port,
-    path: '${pathList.join('/')}/',
+    path: pathList.join('/'),
     queryParameters: query,
   );
 

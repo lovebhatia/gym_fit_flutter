@@ -135,7 +135,7 @@ class _BeginnerWorkoutState extends State<BeginnerWorkout> {
                     children: displayedExcerciseDays
                         .map(
                           (dayData) => DayListtile(
-                              excerciseDay: dayData.name_of_day,
+                              excerciseDay: dayData.workout,
                               id: dayData.id.toString()),
                         )
                         .toList(),

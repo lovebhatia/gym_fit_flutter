@@ -84,24 +84,10 @@ class _BMIScreenState extends State<BMIScreen> {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: AppColors.BLACK,
-          appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            backgroundColor: AppColors.BLACK,
-            elevation: 0,
-            title: Text(
-              'BMI CALCULATOR',
-              style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(fontWeight: FontWeight.w600)),
-            ),
-          ),
           body: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 25.h, left: 20.w),
+                padding: EdgeInsets.only(top: 5.h, left: 20.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

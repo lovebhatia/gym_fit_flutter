@@ -17,7 +17,7 @@ class DayWorkoutScreen extends StatefulWidget {
   //final String resttime;
   final String id;
 
-  DayWorkoutScreen({
+    DayWorkoutScreen({
     required this.selectedDay,
     //required this.time,
     //required this.resttime,
@@ -275,13 +275,13 @@ class _DayWorkoutScreenState extends State<DayWorkoutScreen> {
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (ctx, index) {
                     return ExcerciseTile(
-                      gif: displayedExcercises[index].gif,
-                      nameOfExcercise:
-                          displayedExcercises[index].name_of_exercise,
+                      gif: displayedExcercises[index].gifName,
+                      nameOfExcercise: displayedExcercises[index].exerciseName,
                       //restTime: displayedExcercises[index].,
-                      sets: displayedExcercises[index].sets,
+                      sets: displayedExcercises[index].setRange,
                       //time: displayedExcercises[index].,
-                      description: displayedExcercises[index].description,
+                      description:
+                          displayedExcercises[index].exerciseDescription,
                     );
                     // return Text(displayedExcercises[index].nameOfExcercise,style: TextStyle(color: Colors.white,fontSize: 25),);
                   },

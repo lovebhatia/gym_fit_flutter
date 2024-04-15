@@ -72,7 +72,7 @@ class _BegWorkoutWidgetState extends State<BegWorkoutWidget> {
 
                       child: Image(
                         image: NetworkImage('${AppConst.ChestGifBaseUrl}'
-                            '${widget.workoutExcercises[index].gif}'),
+                            '${widget.workoutExcercises[index].gifName}'),
                       )),
                 ),
                 Row(
@@ -80,7 +80,7 @@ class _BegWorkoutWidgetState extends State<BegWorkoutWidget> {
                   children: [
                     SizedBox(width: 30.w),
                     Text(
-                      widget.workoutExcercises[index].name_of_exercise,
+                      widget.workoutExcercises[index].exerciseName,
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           color: Colors.white,
@@ -128,7 +128,7 @@ class _BegWorkoutWidgetState extends State<BegWorkoutWidget> {
                   padding:
                       EdgeInsets.only(top: 10.0.h, left: 27.w, right: 22.w),
                   child: RepsRecordScreen(
-                      widget.workoutExcercises[index].name_of_exercise),
+                      widget.workoutExcercises[index].exerciseName),
                 ),
                 /*
               Row(

@@ -27,7 +27,7 @@ class AuthProvider with ChangeNotifier {
   static const MIN_APP_VERSION_URL = 'min-app-version';
   static const SERVER_VERSION_URL = 'version';
   static const REGISTRATION_URL = 'register';
-  static const LOGIN_URL = 'token';
+  static const LOGIN_URL = 'auth/login';
   late http.Client client;
 
   AuthProvider([http.Client? client, bool? checkMetadata]) {
@@ -153,7 +153,7 @@ class AuthProvider with ChangeNotifier {
       }
 
       //Log user in
-      token = responseData['access'];
+      token = responseData['accessToken'];
       print('token ' + token.toString());
 
       notifyListeners();

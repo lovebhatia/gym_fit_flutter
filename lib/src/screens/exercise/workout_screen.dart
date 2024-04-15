@@ -29,6 +29,7 @@ class _WorkoutGridState extends State<WorkoutGrid> {
       setState(() {
         displayedExcerciseDays = fetchedExerciseDayList;
       });
+      print("display exercise -> " + displayedExcerciseDays.toString());
     } catch (error) {
       print("Error: $error");
     }
@@ -40,12 +41,12 @@ class _WorkoutGridState extends State<WorkoutGrid> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: Text(
             'Exercises',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 30.0,
+              fontSize: 20.0,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -69,11 +70,11 @@ class _WorkoutGridState extends State<WorkoutGrid> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DayWorkoutScreen(
-                        selectedDay: exercise.name_of_day!,
+                        selectedDay: exercise.workout!,
                         id: exercise.id.toString()!),
                   ),
                 );
-                print('Exercise ${exercise.name_of_day} tapped');
+                print('Exercise ${exercise.workout} tapped');
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,7 +91,7 @@ class _WorkoutGridState extends State<WorkoutGrid> {
                         child: Container(
                           color: AppColors.LIGHT_BLACK,
                           child: Image.network(
-                            '${AppConst.imageBaseUrl}${exercise.name_of_day.toLowerCase().trim().replaceAll(' ', '')}/${exercise.image}',
+                            '${AppConst.imageBaseUrl}${exercise.workout.toLowerCase().trim().replaceAll(' ', '')}/${exercise.imageName}',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -100,7 +101,7 @@ class _WorkoutGridState extends State<WorkoutGrid> {
                   SizedBox(height: 5),
                   Center(
                     child: Text(
-                      exercise.name_of_day!,
+                      exercise.workout,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

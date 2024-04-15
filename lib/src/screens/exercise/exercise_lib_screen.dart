@@ -93,7 +93,7 @@ class ExerciseCard extends StatelessWidget {
                       alignment: Alignment.topRight,
                       children: [
                         Image.network(
-                          '${AppConst.imageBaseUrl}${exercise.name_of_day.toLowerCase().trim().replaceAll(' ', '')}/${exercise.image}',
+                          '${AppConst.imageBaseUrl}${exercise.workout.toLowerCase().trim().replaceAll(' ', '')}/${exercise.imageName}',
                           height: double
                               .infinity, // Make the image fill the available height
                           width: double.infinity,
@@ -102,7 +102,7 @@ class ExerciseCard extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             // Implement functionality to save or mark as favorite
-                            print('Exercise ${exercise.name_of_day} saved');
+                            print('Exercise ${exercise.workout} saved');
                           },
                           icon: Icon(Icons.star_border),
                         ),
@@ -113,7 +113,7 @@ class ExerciseCard extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
-                      exercise.name_of_day!,
+                      exercise.workout!,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -150,7 +150,7 @@ class ExerciseDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(exercise.name_of_day!),
+        title: Text(exercise.workout!),
       ),
       body: Center(
         child: Text('Exercise details go here'),

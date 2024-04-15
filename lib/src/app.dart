@@ -4,6 +4,7 @@ import 'package:gym_fit/src/resources/app_colors.dart';
 import 'package:gym_fit/src/screens/home_screen.dart';
 import 'package:gym_fit/src/screens/authScreen.dart';
 import 'package:gym_fit/src/screens/splash_screen.dart';
+import 'package:gym_fit/src/screens/work_out_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
                         future: auth.tryAutoLogin(),
                         builder: (ctx, authResultSnapshot) => AuthScreen(),
                       ),
-            routes: {HomeScreen.routeName: (ctx) => HomeScreen()},
+            routes: {HomeScreen.routeName: (ctx) => const HomeScreen()},
           ),
         ),
       ),

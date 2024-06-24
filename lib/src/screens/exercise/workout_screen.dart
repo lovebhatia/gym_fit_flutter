@@ -36,85 +36,83 @@ class _WorkoutGridState extends State<WorkoutGrid> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Text(
-            'Exercises',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
+Widget build(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Text(
+          'Exercises',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      const SizedBox(height: 10.0),
+      GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: displayedExcerciseDays.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, // Display 3 items in each row
+          mainAxisSpacing: 10.0,
+          crossAxisSpacing: 10.0,
+          childAspectRatio: 0.9, // Adjust the aspect ratio as needed
+        ),
+        itemBuilder: (context, index) {
+          final exercise = displayedExcerciseDays[index];
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DayWorkoutScreen(
+                    selectedDay: exercise.workout!,
+                    id: exercise.id.toString()!,
+                  ),
+                ),
+              );
+              print('Exercise ${exercise.workout} tapped');
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: AppColors
+                          .LIGHT_BLACK, // Background color for the rounded container
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: Image.network(
+                        '${AppConst.imageBaseUrl}${exercise.workout.toLowerCase().trim().replaceAll(' ', '')}/${exercise.imageName}',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  exercise.workout,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-          ),
-        ),
-        const SizedBox(height: 10.0),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: displayedExcerciseDays.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // Display 3 items in each row
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 10.0,
-            childAspectRatio: 1.0,
-          ),
-          itemBuilder: (context, index) {
-            final exercise = displayedExcerciseDays[index];
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DayWorkoutScreen(
-                        selectedDay: exercise.workout!,
-                        id: exercise.id.toString()!),
-                  ),
-                );
-                print('Exercise ${exercise.workout} tapped');
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        color: AppColors
-                            .LIGHT_BLACK, // Background color for the rounded container
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15.0),
-                        child: Container(
-                          color: AppColors.LIGHT_BLACK,
-                          child: Image.network(
-                            '${AppConst.imageBaseUrl}${exercise.workout.toLowerCase().trim().replaceAll(' ', '')}/${exercise.imageName}',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Center(
-                    child: Text(
-                      exercise.workout,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
+          );
+        },
+      ),
+    ],
+  );
+}
 }

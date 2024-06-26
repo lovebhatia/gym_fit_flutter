@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RepsRecordScreen extends StatefulWidget {
-  RepsRecordScreen(String nameOfExcercise);
+  final String nameOfExcercise;
+  RepsRecordScreen({required this.nameOfExcercise});
 
   @override
   _RepsRecordScreenState createState() => _RepsRecordScreenState();
@@ -43,9 +44,11 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
 
   void _addRow() {
     setState(() {
+      int currentIndex = rowData.length + 1; // Calculate the current index
       Map<String, dynamic> newRowData = {
         'weight': '',
         'reps': '',
+        'index': currentIndex
       };
       rowData.add(newRowData);
 
@@ -57,7 +60,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
       repsControllers.add(repsController);
 
       rows.add(
-        _buildRow(rows.length + 1),
+        _buildRow(currentIndex),
       );
     });
   }
@@ -71,8 +74,11 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   }
 
   void _sendDataToApi() {
-    //convert rowData to json
-    String jsonData = jsonEncode(rowData);
+    Map<String, dynamic> dataToSend = {
+      'exercise_name': widget.nameOfExcercise,
+      'records': rowData,
+    };
+    String jsonData = jsonEncode(dataToSend);
     print("reps data -->  " + jsonData);
   }
 

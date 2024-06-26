@@ -128,7 +128,8 @@ class _BegWorkoutWidgetState extends State<BegWorkoutWidget> {
                   padding:
                       EdgeInsets.only(top: 10.0.h, left: 27.w, right: 22.w),
                   child: RepsRecordScreen(
-                      widget.workoutExcercises[index].exerciseName),
+                      nameOfExcercise:
+                          widget.workoutExcercises[index].exerciseName),
                 ),
                 /*
               Row(

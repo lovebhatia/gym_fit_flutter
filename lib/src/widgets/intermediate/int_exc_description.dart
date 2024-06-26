@@ -89,7 +89,7 @@ class IntModalSheet extends StatelessWidget {
                     // Dismiss the keyboard when tapping outside of text fields
                     FocusScope.of(context).unfocus();
                   },
-                  child: RepsRecordScreen(nameOfExcercise),
+                  child: RepsRecordScreen(nameOfExcercise: nameOfExcercise),
                 ),
               ),
             ],

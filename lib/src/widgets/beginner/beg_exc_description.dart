@@ -74,7 +74,9 @@ class BegModalSheet extends StatelessWidget {
                 Padding(
                   padding:
                       EdgeInsets.only(top: 10.0.h, left: 27.w, right: 22.w),
-                  child: RepsRecordScreen(name_of_exercise),
+                  child: RepsRecordScreen(
+                    nameOfExcercise: name_of_exercise,
+                  ),
                 ),
               ],
             ),

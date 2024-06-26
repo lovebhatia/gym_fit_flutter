@@ -73,6 +73,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   void _sendDataToApi() {
     //convert rowData to json
     String jsonData = jsonEncode(rowData);
+    print("reps data -->  " + jsonData);
   }
 
   Widget _buildRow(int index) {
@@ -193,47 +194,47 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return SingleChildScrollView(
-    child: Container(
-      width: 600, // Ensure that the container takes the full width
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            //color: Colors.grey[800], // Background color of the table
-            child: Column(
-              children: rows,
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        width: 600, // Ensure that the container takes the full width
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              //color: Colors.grey[800], // Background color of the table
+              child: Column(
+                children: rows,
+              ),
             ),
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  _addRow();
-                },
-                child: const Text('Add More Sets'),
-              ),
-              SizedBox(width: 10), // Spacing between the buttons
-              ElevatedButton(
-                onPressed: () {
-                  _save();
-                },
-                child: const Text('Save'),
-              ),
-            ],
-          ),
-        ],
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    _addRow();
+                  },
+                  child: const Text('Add More Sets'),
+                ),
+                SizedBox(width: 10), // Spacing between the buttons
+                ElevatedButton(
+                  onPressed: () {
+                    //_save(this.rowData);
+                    _sendDataToApi();
+                  },
+                  child: const Text('Save'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
 // Add your _save method implementation here
-void _save() {
-  // Your save logic
-}
-
+  void _save(rowdata) {
+    // Your save logic
+  }
 }

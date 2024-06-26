@@ -152,6 +152,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               SizedBox(
                 height: 20.h,
               ),
+              /*
               Padding(
                 padding: EdgeInsets.only(left: 25.w, right: 25.w),
                 child: InkWell(
@@ -212,6 +213,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   ),
                 ),
               ),
+              */
             ],
           ),
         ),

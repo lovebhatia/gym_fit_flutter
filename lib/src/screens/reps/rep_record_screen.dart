@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gym_fit/src/models/exerciseRecordmodel.dart';
+import 'package:gym_fit/src/models/exercise_set_model.dart';
+import 'package:gym_fit/src/service/exercise_service.dart';
 
 import '../../resources/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class RepsRecordScreen extends StatefulWidget {
   final String nameOfExcercise;
-  RepsRecordScreen({required this.nameOfExcercise});
+  RepsRecordScreen({super.key, required this.nameOfExcercise});
 
   @override
   _RepsRecordScreenState createState() => _RepsRecordScreenState();
@@ -22,6 +25,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   List<TextEditingController> weightControllers = [];
   List<TextEditingController> repsControllers = [];
   List<Map<String, dynamic>> rowData = [];
+  List<ExerciseSetmodel> exerciseSets = [];
 
   String selectedReps = '';
   String selectedWeights = '';
@@ -29,7 +33,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   @override
   void dispose() {
     // Clean up the controllers when the widget is disposed
-    setsController.dispose();
+    //setsController.dispose();
     super.dispose();
   }
 
@@ -40,25 +44,22 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
     for (int i = 0; i < rowCount; i++) {
       _addRow();
     }
+    _fetchData();
   }
 
   void _addRow() {
     setState(() {
-      int currentIndex = rowData.length + 1; // Calculate the current index
+      int currentIndex = rowData.length + 1;
       Map<String, dynamic> newRowData = {
         'weight': '',
         'reps': '',
-        'index': currentIndex
+        'set': currentIndex
       };
       rowData.add(newRowData);
-
-      // Create new controllers for each new row
       TextEditingController weightController = TextEditingController();
       TextEditingController repsController = TextEditingController();
-
       weightControllers.add(weightController);
       repsControllers.add(repsController);
-
       rows.add(
         _buildRow(currentIndex),
       );
@@ -66,20 +67,59 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   }
 
   void _updateRowData(int index, String field, String value) {
-    print(field + "---" + value);
     setState(() {
       rowData[index][field] = value;
     });
-    print(rowData.toString());
   }
 
-  void _sendDataToApi() {
+  Future<void> _sendDataToApi() async {
     Map<String, dynamic> dataToSend = {
       'exercise_name': widget.nameOfExcercise,
       'records': rowData,
     };
     String jsonData = jsonEncode(dataToSend);
-    print("reps data -->  " + jsonData);
+
+    final exerciseService = ExerciseService();
+    await exerciseService.createExerciseSet(dataToSend);
+  }
+
+  Future<void> _fetchData() async {
+    final exerciseService = ExerciseService();
+    try {
+      List<ExerciseSetmodel> fetchedData =
+          await exerciseService.fetchExerciseSets();
+      setState(() {
+        exerciseSets = fetchedData;
+        rows = [];
+        for (var exerciseSet in exerciseSets) {
+          for (var record in exerciseSet.records) {
+            _addExistingRow(record);
+          }
+        }
+      });
+    } catch (e) {
+      print('Failed to fetch data: $e');
+    }
+  }
+
+  void _addExistingRow(ExerciseRecordModel record) {
+    setState(() {
+      Map<String, dynamic> newRowData = {
+        'weight': record.weight.toString(),
+        'reps': record.reps.toString(),
+        'set': record.index
+      };
+      rowData.add(newRowData);
+      TextEditingController weightController =
+          TextEditingController(text: record.weight.toString());
+      TextEditingController repsController =
+          TextEditingController(text: record.reps.toString());
+      weightControllers.add(weightController);
+      repsControllers.add(repsController);
+      rows.add(
+        _buildRow(record.index),
+      );
+    });
   }
 
   Widget _buildRow(int index) {
@@ -88,7 +128,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey[800]!),
         ),
-        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
         child: Row(
           children: [
             Container(
@@ -107,7 +147,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
                 ),
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Container(
               width: 100,
               child: Row(
@@ -116,13 +156,13 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
                     child: TextFormField(
                       controller: weightControllers[index - 1],
                       keyboardType: TextInputType.number,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: const EdgeInsets.all(10.0),
                         fillColor: Colors.grey[800],
                         filled: true,
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
@@ -137,7 +177,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
                       },
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(
                     'Kg', //........................................
                     style: GoogleFonts.montserrat(
@@ -152,7 +192,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
                 ],
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Container(
               width: 120,
               child: Row(
@@ -161,13 +201,13 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
                     child: TextFormField(
                       controller: repsControllers[index - 1],
                       keyboardType: TextInputType.number,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: const EdgeInsets.all(10.0),
                         fillColor: Colors.grey[800],
                         filled: true,
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
@@ -178,9 +218,9 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
                       },
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
-                    'REPS', //........................................
+                    'REPS',
                     style: GoogleFonts.montserrat(
                       textStyle: TextStyle(
                         color: Colors.white,
@@ -213,7 +253,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
                 children: rows,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -223,7 +263,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
                   },
                   child: const Text('Add More Sets'),
                 ),
-                SizedBox(width: 10), // Spacing between the buttons
+                const SizedBox(width: 10), // Spacing between the buttons
                 ElevatedButton(
                   onPressed: () {
                     //_save(this.rowData);

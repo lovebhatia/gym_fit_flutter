@@ -79,6 +79,7 @@ class ExerciseService {
     String token = extractedUserData['token'];
     final body = json.encode(data);
     print(body);
+
     final response =
         await http.post(Uri.parse('$DEFAULT_SERVER_PROD1/exercise-sets'),
             headers: {
@@ -98,6 +99,7 @@ class ExerciseService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final extractedUserData = json.decode(prefs.getString('userData')!);
     String token = extractedUserData['token'];
+    print('userId --> ' + extractedUserData['userId']);
 
     final response = await http.get(
       Uri.parse('$DEFAULT_SERVER_PROD1/exercise-sets'),

@@ -10,9 +10,8 @@ class BeginnerService {
 
   Future<List<ExerciseDay>> fetchExerciseDay() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('3');
     final extractedUserData = json.decode(prefs.getString('userData')!);
-    print('1');
+    print(extractedUserData['userId']);
     String token = extractedUserData['token'];
     final response = await http.get(
       Uri.parse('$DEFAULT_SERVER_PROD1/workout/allWorkouts'),
@@ -21,12 +20,10 @@ class BeginnerService {
         'Content-Type': 'application/json',
       },
     );
-    print('2');
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body);
       List<ExerciseDay> exerciseDayList =
           data.map((json) => ExerciseDay.fromJson(json)).toList();
-      print('3');
       return exerciseDayList;
     } else {
       throw Exception('Failed to load exerciseDay');
@@ -47,10 +44,8 @@ class BeginnerService {
     );
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body);
-      print('response --> ' + response.toString());
       List<ExercisesPerDay> exercises =
           data.map((json) => ExercisesPerDay.fromJson(json)).toList();
-      print('lenght' + exercises.length.toString());
       return exercises;
     } else {
       throw Exception('Failed to load exerciseDay');

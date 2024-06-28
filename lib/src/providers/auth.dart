@@ -21,6 +21,7 @@ class AuthProvider with ChangeNotifier {
   String? token;
   String? serverUrl;
   String? serverVersion;
+  String? userId;
   PackageInfo? applicationVersion;
   Map<String, String> metadata = {};
 
@@ -154,6 +155,7 @@ class AuthProvider with ChangeNotifier {
 
       //Log user in
       token = responseData['accessToken'];
+
       print('token ' + token.toString());
 
       notifyListeners();
@@ -163,6 +165,7 @@ class AuthProvider with ChangeNotifier {
       final userData = json.encode({
         'token': token,
         'serverUrl': this.serverUrl,
+        'userId': responseData['userId']
       });
       final serverData = json.encode({
         'serverUrl': this.serverUrl,

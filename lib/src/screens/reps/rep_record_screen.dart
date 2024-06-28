@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gym_fit/src/models/exerciseRecordmodel.dart';
 import 'package:gym_fit/src/models/exercise_set_model.dart';
 import 'package:gym_fit/src/service/exercise_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -73,12 +75,15 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   }
 
   Future<void> _sendDataToApi() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final extractedUserData = json.decode(prefs.getString('userData')!);
+    var userId = extractedUserData['userId'];
     Map<String, dynamic> dataToSend = {
-      'exercise_name': widget.nameOfExcercise,
+      'exerciseName': widget.nameOfExcercise,
+      'userId': userId,
       'records': rowData,
     };
     String jsonData = jsonEncode(dataToSend);
-
     final exerciseService = ExerciseService();
     await exerciseService.createExerciseSet(dataToSend);
   }

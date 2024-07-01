@@ -80,13 +80,13 @@ class ExerciseService {
     final body = json.encode(data);
     print(body);
 
-    final response =
-        await http.post(Uri.parse('$DEFAULT_SERVER_PROD1/save-exercise-per-user'),
-            headers: {
-              'Authorization': 'Bearer $token',
-              'Content-Type': 'application/json',
-            },
-            body: body);
+    final response = await http.post(
+        Uri.parse('$DEFAULT_SERVER_PROD1/save-exercise-per-user'),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: body);
 
     if (response.statusCode == 200) {
       print('Exercise set created successfully');
@@ -95,27 +95,50 @@ class ExerciseService {
     }
   }
 
-  Future<List<ExerciseSetmodel>> fetchExerciseSets() async {
+  Future<List<ExercisePerUserModel>> fetchExerciseSets() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final extractedUserData = json.decode(prefs.getString('userData')!);
     String token = extractedUserData['token'];
-    print('userId --> ' + extractedUserData['userId']);
 
-    final response = await http.get(
-      Uri.parse('$DEFAULT_SERVER_PROD1/exercise-sets'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      },
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('$DEFAULT_SERVER_PROD1/exercise-per-user')
+            .replace(queryParameters: {
+          'userId': '2',
+          'exerciseName': 'Bench Press',
+          'date': '2024-07-01',
+        }),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
 
-    if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
-      List<ExerciseSetmodel> exerciseSets =
-          data.map((json) => ExerciseSetmodel.fromJson(json)).toList();
-      return exerciseSets;
-    } else {
-      throw Exception('Failed to load exercise sets');
+      if (response.statusCode == 200) {
+        // Check if response body is not null and not empty
+        if (response.body != null && response.body.isNotEmpty) {
+          // Parse the response body
+          List<dynamic> data = jsonDecode(response.body);
+          print(response.body);
+          // Check if data is a List
+          if (data is List) {
+            List<ExercisePerUserModel> exerciseSets = data
+                .map((json) => ExercisePerUserModel.fromJson(json))
+                .toList();
+            print('in exercise sets');
+            return exerciseSets;
+          } else {
+            throw Exception('Invalid response format');
+          }
+        } else {
+          throw Exception('Empty response body');
+        }
+      } else {
+        throw Exception('Failed to load exercise sets: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Failed to fetch data: $e');
+      throw Exception('Failed to fetch data: $e');
     }
   }
 }

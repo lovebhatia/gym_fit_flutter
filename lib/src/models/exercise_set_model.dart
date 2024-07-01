@@ -1,30 +1,28 @@
 import 'package:gym_fit/src/models/exerciseRecordmodel.dart';
 
-class ExerciseSetmodel {
+class ExercisePerUserModel {
+  final int id;
   final String exerciseName;
-  final List<ExerciseRecordModel> records;
-  final int exercisePerUserId;
+  final DateTime createdAt;
+  final List<ExercisePeruserRecordModel> exerciseSetRecords;
 
-  ExerciseSetmodel(
-      {required this.exerciseName,
-      required this.records,
-      required this.exercisePerUserId});
+  ExercisePerUserModel({
+    required this.id,
+    required this.exerciseName,
+    required this.createdAt,
+    required this.exerciseSetRecords,
+  });
 
-  Map<String, dynamic> toJson() {
-    return {
-      'exerciseName': exerciseName,
-      'records': records.map((record) => record.toJson()).toList(),
-      'exercisePerUserId': exercisePerUserId,
-    };
-  }
+  factory ExercisePerUserModel.fromJson(Map<String, dynamic> json) {
+    var list = json['exerciseSetRecords'] as List;
+    List<ExercisePeruserRecordModel> exerciseSetRecordList =
+        list.map((i) => ExercisePeruserRecordModel.fromJson(i)).toList();
 
-  static ExerciseSetmodel fromJson(Map<String, dynamic> json) {
-    return ExerciseSetmodel(
+    return ExercisePerUserModel(
+      id: json['id'],
       exerciseName: json['exerciseName'],
-      records: (json['records'] as List<dynamic>)
-          .map((record) => ExerciseRecordModel.fromJson(record))
-          .toList(),
-      exercisePerUserId: json['exercisePerUserId'],
+      createdAt: DateTime.parse(json['createdAt']),
+      exerciseSetRecords: exerciseSetRecordList,
     );
   }
 }

@@ -22,20 +22,20 @@ class RepsRecordScreen extends StatefulWidget {
 class _RepsRecordScreenState extends State<RepsRecordScreen> {
   List<Widget> rows = [];
   int rowCount = 3; // Initial number of rows
-  TextEditingController setsController = TextEditingController();
-  TextEditingController weightController = TextEditingController();
   List<TextEditingController> weightControllers = [];
   List<TextEditingController> repsControllers = [];
   List<Map<String, dynamic>> rowData = [];
-  List<ExerciseSetmodel> exerciseSets = [];
-
-  String selectedReps = '';
-  String selectedWeights = '';
+  List<ExercisePerUserModel> exerciseSets = [];
 
   @override
   void dispose() {
     // Clean up the controllers when the widget is disposed
-    //setsController.dispose();
+    for (var controller in weightControllers) {
+      controller.dispose();
+    }
+    for (var controller in repsControllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -43,6 +43,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   void initState() {
     super.initState();
     // Initialize rows
+    print('in init state');
     for (int i = 0; i < rowCount; i++) {
       _addRow();
     }
@@ -91,13 +92,17 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   Future<void> _fetchData() async {
     final exerciseService = ExerciseService();
     try {
-      List<ExerciseSetmodel> fetchedData =
+      List<ExercisePerUserModel> fetchedData =
           await exerciseService.fetchExerciseSets();
       setState(() {
+        print('in method');
         exerciseSets = fetchedData;
         rows = [];
+        weightControllers.clear();
+        repsControllers.clear();
+        rowData.clear();
         for (var exerciseSet in exerciseSets) {
-          for (var record in exerciseSet.records) {
+          for (var record in exerciseSet.exerciseSetRecords) {
             _addExistingRow(record);
           }
         }
@@ -107,12 +112,13 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
     }
   }
 
-  void _addExistingRow(ExerciseRecordModel record) {
+  void _addExistingRow(ExercisePeruserRecordModel record) {
+    print(record.reps);
     setState(() {
       Map<String, dynamic> newRowData = {
         'weight': record.weight.toString(),
         'reps': record.reps.toString(),
-        'set': record.index
+        'set': record.set
       };
       rowData.add(newRowData);
       TextEditingController weightController =
@@ -122,7 +128,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
       weightControllers.add(weightController);
       repsControllers.add(repsController);
       rows.add(
-        _buildRow(record.index),
+        _buildRow(record.set),
       );
     });
   }
@@ -184,7 +190,7 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    'Kg', //........................................
+                    'Kg',
                     style: GoogleFonts.montserrat(
                       textStyle: TextStyle(
                         color: Colors.white,
@@ -282,10 +288,5 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
         ),
       ),
     );
-  }
-
-// Add your _save method implementation here
-  void _save(rowdata) {
-    // Your save logic
   }
 }

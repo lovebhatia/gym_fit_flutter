@@ -1,24 +1,25 @@
-class ExerciseRecordModel {
+class ExercisePeruserRecordModel {
+  final int id;
   final int reps;
   final double weight;
-  final int index;
+  final int set;
+  final DateTime createdTime;
 
-  ExerciseRecordModel(
-      {required this.reps, required this.weight, required this.index});
+  ExercisePeruserRecordModel({
+    required this.id,
+    required this.reps,
+    required this.weight,
+    required this.set,
+    required this.createdTime,
+  });
 
-  Map<String, dynamic> toJson() {
-    return {
-      'reps': reps,
-      'weight': weight,
-      'index': index,
-    };
-  }
-
-  static ExerciseRecordModel fromJson(Map<String, dynamic> json) {
-    return ExerciseRecordModel(
+  factory ExercisePeruserRecordModel.fromJson(Map<String, dynamic> json) {
+    return ExercisePeruserRecordModel(
+      id: json['id'],
       reps: json['reps'],
       weight: json['weight'],
-      index: json['index'],
+      set: json['set'],
+      createdTime: DateTime.parse(json['createdTime']),
     );
   }
 }

@@ -81,7 +81,7 @@ class ExerciseService {
     print(body);
 
     final response =
-        await http.post(Uri.parse('$DEFAULT_SERVER_PROD1/exercise-sets'),
+        await http.post(Uri.parse('$DEFAULT_SERVER_PROD1/save-exercise-per-user'),
             headers: {
               'Authorization': 'Bearer $token',
               'Content-Type': 'application/json',

@@ -81,13 +81,13 @@ class ExerciseService {
     final body = json.encode(data);
     print(body);
 
-    final response = await http.post(
-        Uri.parse('$DEFAULT_SERVER_PROD1/save-exercise-per-user'),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-        body: body);
+    final response =
+        await http.post(Uri.parse('$DEFAULT_SERVER_PROD1/exercise-per-user'),
+            headers: {
+              'Authorization': 'Bearer $token',
+              'Content-Type': 'application/json',
+            },
+            body: body);
 
     if (response.statusCode == 200) {
       print('Exercise set created successfully');
@@ -96,7 +96,8 @@ class ExerciseService {
     }
   }
 
-  Future<List<ExercisePerUserModel>> fetchExerciseSets(exerciseName, userID) async {
+  Future<List<ExercisePerUserModel>> fetchExerciseSets(
+      exerciseName, userID) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final extractedUserData = json.decode(prefs.getString('userData')!);
     String token = extractedUserData['token'];

@@ -52,6 +52,7 @@ dependencies:
   android_metadata: ^0.2.1
   share_plus: ^7.2.2
   video_player: ^2.8.3
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,7 @@ import 'package:gym_fit/src/models/exercise_set_model.dart';
 import 'package:gym_fit/src/providers/baseProvider.dart';
 import 'package:http/http.dart' as http;
 import 'package:gym_fit/src/models/beginner/beginner_model.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ExerciseService {
@@ -95,18 +96,23 @@ class ExerciseService {
     }
   }
 
-  Future<List<ExercisePerUserModel>> fetchExerciseSets() async {
+  Future<List<ExercisePerUserModel>> fetchExerciseSets(exerciseName, userID) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final extractedUserData = json.decode(prefs.getString('userData')!);
     String token = extractedUserData['token'];
+    var userId = extractedUserData['userId'];
+    print(userId);
+
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
 
     try {
       final response = await http.get(
         Uri.parse('$DEFAULT_SERVER_PROD1/exercise-per-user')
             .replace(queryParameters: {
-          'userId': '2',
-          'exerciseName': 'Bench Press',
-          'date': '2024-07-01',
+          'userId': userId.toString(),
+          'exerciseName': exerciseName,
+          'date': formattedDate,
         }),
         headers: {
           'Authorization': 'Bearer $token',

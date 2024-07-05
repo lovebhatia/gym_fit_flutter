@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gym_fit/src/models/exerciseRecordmodel.dart';
 import 'package:gym_fit/src/models/exercise_set_model.dart';
 import 'package:gym_fit/src/service/exercise_service.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/app_colors.dart';
@@ -79,10 +80,13 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final extractedUserData = json.decode(prefs.getString('userData')!);
     var userId = extractedUserData['userId'];
+     DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     Map<String, dynamic> dataToSend = {
       'exerciseName': widget.nameOfExcercise,
       'userId': userId,
       'records': rowData,
+      'date': formattedDate
     };
     String jsonData = jsonEncode(dataToSend);
     final exerciseService = ExerciseService();
@@ -90,10 +94,13 @@ class _RepsRecordScreenState extends State<RepsRecordScreen> {
   }
 
   Future<void> _fetchData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final extractedUserData = json.decode(prefs.getString('userData')!);
+    var userId = extractedUserData['userId'];
     final exerciseService = ExerciseService();
     try {
       List<ExercisePerUserModel> fetchedData =
-          await exerciseService.fetchExerciseSets();
+          await exerciseService.fetchExerciseSets(widget.nameOfExcercise, userId);
       setState(() {
         print('in method');
         exerciseSets = fetchedData;

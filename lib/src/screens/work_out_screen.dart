@@ -196,7 +196,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                                     exercise['exercise'] as String,
                                     style: GoogleFonts.lato(
                                       fontSize: 18.sp,
-                                      color: const Color(0xff8E2DE2),
+                                      color: Color.fromRGBO(241, 234, 248, 1),
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),

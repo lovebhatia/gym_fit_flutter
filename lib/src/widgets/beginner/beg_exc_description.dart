@@ -28,7 +28,7 @@ class BegModalSheet extends StatelessWidget {
           Container(
             height: 500.h,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   AppColors.BLACK,
@@ -45,7 +45,7 @@ class BegModalSheet extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 25.0.w, right: 25.w),
                   child: Container(
-                    padding: EdgeInsets.only(top: 32),
+                    padding: const EdgeInsets.only(top: 32),
                     height: 200.h,
                     width: 350.w,
                     child: Image(

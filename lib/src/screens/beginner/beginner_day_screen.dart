@@ -208,9 +208,12 @@ class _DayWorkoutScreenState extends State<DayWorkoutScreen> {
                             ),
                           ),
                         ),
+                        /*
                         SizedBox(
                           height: 24.h,
                         ),
+                        */
+                        /*
                         ElevatedButton(
                           //..........................start the workout...........................
                           onPressed: () {
@@ -262,6 +265,7 @@ class _DayWorkoutScreenState extends State<DayWorkoutScreen> {
                             ),
                           ),
                         ),
+                        */
                       ],
                     ),
                   ),
